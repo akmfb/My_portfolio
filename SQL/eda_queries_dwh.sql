@@ -1,3 +1,8 @@
+-- Exploratory Data Analysis (EDA)
+-- Author: Akimi
+-- Purpose: Initial exploration of dataset before visualization
+-- Date: 2026-09-20
+
 select * from fact_sales fs
 join dim_customers dc
 	on fs.customer_key = dc.customer_key
