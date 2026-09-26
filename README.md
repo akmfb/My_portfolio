@@ -25,6 +25,8 @@
 - Yearly and Quarterly sales trend
 - Category level sales performance
 - Top and Bottom products by Sales
+
+#### Dashboard preview:
 [![Dashboard Preview](tableau/Tableau_sales_viz.png)](https://public.tableau.com/app/profile/aki.fer/viz/SalesDashboard_17904562083920/Dashboard1)
 
 ## Recommendations
