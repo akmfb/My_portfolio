@@ -26,7 +26,8 @@
 ```sql
 -- Joins and CTEs --
 with cte_gender (subcategory, gender, total_sales, ranking) as
-(select dp.subcategory, dc.gender, sum(fs.sales_amount), dense_rank() over(partition by dc.gender order by sum(fs.sales_amount)desc)
+(select dp.subcategory, dc.gender, sum(fs.sales_amount),
+dense_rank() over(partition by dc.gender order by sum(fs.sales_amount)desc)
 from fact_sales fs
 join dim_customers dc
 	on fs.customer_key = dc.customer_key
