@@ -20,12 +20,47 @@
 - 2013 recorded the highest sales with Mountain Bikes as the highest contributor.
 - Sales performance show no meaningful difference between male and female customer groups. Both contribute significantly to total revenue.
 
-## Tableau Dashboard
+<details>
+ <summary><b>Sample Queries</b></summary>
+  
+```sql
+-- Joins and CTEs --
+with cte_gender (subcategory, gender, total_sales, ranking) as
+(select dp.subcategory, dc.gender, sum(fs.sales_amount), dense_rank() over(partition by dc.gender order by sum(fs.sales_amount)desc)
+from fact_sales fs
+join dim_customers dc
+	on fs.customer_key = dc.customer_key
+join dim_products dp
+	on fs.product_key = dp.product_key
+group by dp.subcategory, dc.gender
+)
+select *
+from cte_gender cg1
+join cte_gender cg2
+	on cg1.subcategory = cg2.subcategory
+where cg1.gender ='female'
+		and cg2.gender = 'male';
+```
+```sql
+-- Subqueries --
+select *
+from 
+	(select dp.product_name, sum(sales_amount), row_number() over (order by sum(sales_amount) desc) as ranking
+	from fact_sales fs
+	join dim_products dp 
+		on fs.product_key = dp.product_key
+	group by dp.product_name
+	order by 2 desc) sales_rank
+where ranking <= 10
+```
+</details>
+
+## Tableau Dashboard 
 - KPI Summary
 - Yearly and Quarterly sales trend
 - Category level sales performance
 - Top and Bottom products by Sales
-
+  
 #### Dashboard preview:
 [![Dashboard Preview](P1_Sales_Viz.png)](https://shorturl.at/WXtCl)
 
