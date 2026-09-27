@@ -27,7 +27,7 @@
 - Top and Bottom products by Sales
 
 #### Dashboard preview:
-[![Dashboard Preview](tableau/Tableau_sales_viz.png)](https://public.tableau.com/app/profile/aki.fer/viz/SalesDashboard_17904562083920/Dashboard1)
+[![Dashboard Preview](P1_Sales_Viz.png)](https://shorturl.at/WXtCl)
 
 ## Recommendations
 - Increase targeted campaigns to young adults, especially in Mountain and Road Bikes.
