@@ -62,7 +62,8 @@ where ranking <= 10
 - Top and Bottom products by Sales
   
 #### Dashboard preview:
-[![Dashboard Preview](P1_Sales_Viz.png)](https://shorturl.at/WXtCl)
+<a href="https://shorturl.at/WXtCl">
+	<img src="Sales_dashboard.gif" width="600">
 
 ## Recommendations
 - Increase targeted campaigns to young adults, especially in Mountain and Road Bikes.
