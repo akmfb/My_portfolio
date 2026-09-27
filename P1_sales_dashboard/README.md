@@ -64,6 +64,7 @@ where ranking <= 10
 #### Dashboard preview:
 <a href="https://shorturl.at/WXtCl">
 	<img src="Sales_dashboard.gif" width="600">
+<a/>
 
 ## Recommendations
 - Increase targeted campaigns to young adults, especially in Mountain and Road Bikes.
