@@ -49,16 +49,15 @@ where cg1.gender ='female'
 ```sql
 -- Subqueries --
 select *
-from 
-	(select
+from (select
 		dp.product_name,
 		sum(sales_amount),
 		row_number() over (order by sum(sales_amount) desc) as ranking
-	from fact_sales fs
-	join dim_products dp 
-		on fs.product_key = dp.product_key
-	group by dp.product_name
-	order by 2 desc
+		from fact_sales fs
+		join dim_products dp 
+			on fs.product_key = dp.product_key
+		group by dp.product_name
+		order by 2 desc
 	) sales_rank
 where ranking <= 10;
 ```
