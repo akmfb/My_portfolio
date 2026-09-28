@@ -26,8 +26,12 @@
 ```sql
 -- Joins and CTEs --
 with cte_gender (subcategory, gender, total_sales, ranking) as
-(select dp.subcategory, dc.gender, sum(fs.sales_amount),
-dense_rank() over(partition by dc.gender order by sum(fs.sales_amount)desc)
+(
+select
+	dp.subcategory,
+	dc.gender,
+	sum(fs.sales_amount),
+	dense_rank() over(partition by dc.gender order by sum(fs.sales_amount)desc)
 from fact_sales fs
 join dim_customers dc
 	on fs.customer_key = dc.customer_key
@@ -46,13 +50,17 @@ where cg1.gender ='female'
 -- Subqueries --
 select *
 from 
-	(select dp.product_name, sum(sales_amount), row_number() over (order by sum(sales_amount) desc) as ranking
+	(select
+		dp.product_name,
+		sum(sales_amount),
+		row_number() over (order by sum(sales_amount) desc) as ranking
 	from fact_sales fs
 	join dim_products dp 
 		on fs.product_key = dp.product_key
 	group by dp.product_name
-	order by 2 desc) sales_rank
-where ranking <= 10
+	order by 2 desc
+	) sales_rank
+where ranking <= 10;
 ```
 </details>
 
