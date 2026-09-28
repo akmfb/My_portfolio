@@ -1,4 +1,5 @@
-select * from fact_sales fs
+select * 
+from fact_sales fs
 join dim_customers dc
 	on fs.customer_key = dc.customer_key
 join dim_products dp
@@ -20,9 +21,12 @@ from dim_products
 group by product_key
 having total_count > 1;
 
-with cte_dupe as (
-select *, row_number() over(partition by order_number, product_key, customer_key, order_date, shipping_date, due_date, sales_amount, quantity, price) as row_num
-from fact_sales)
+with cte_dupe as 
+(
+select *, 
+row_number() over(partition by order_number, product_key, customer_key, order_date, shipping_date, due_date, sales_amount, quantity, price) as row_num
+from fact_sales
+)
 select * 
 from cte_dupe
 where row_num >1;
@@ -41,7 +45,8 @@ from fact_sales
 where order_date != '';
 
 -- How many years of sales are available ----
-select min(order_date), max(order_date), timestampdiff(YEAR, min(order_date),max(order_date)) as order_range_years
+select min(order_date), max(order_date), 
+	timestampdiff(YEAR, min(order_date),max(order_date)) as order_range_years
 from fact_sales
 where order_date != '';
 
@@ -110,7 +115,7 @@ from dim_products
 group by category;
 
 -- Compare sales per product line--
-select product_line, avg(price), sum(quantity),sum(sales_amount)
+select product_line, avg(price) as avg_price, sum(quantity) as total_quantity, sum(sales_amount) as total_sales
 from fact_sales fs
 join dim_products dp
 	on fs.product_key = dp.product_key
@@ -132,7 +137,7 @@ group by full_name
 order by 2 desc
 limit 10;
 
-select dc.first_name, dc.last_name, sum(fs.sales_amount)
+select dc.first_name, dc.last_name, sum(fs.sales_amount) as total_sales
 from fact_sales fs 
 join dim_customers dc
 	on fs.customer_key = dc.customer_key
@@ -141,7 +146,8 @@ where first_name ='Jordan' and last_name = 'Turner';
 -- Which 10 products generate the highest revenue --
 select *
 from 
-	(select dp.product_name, sum(sales_amount), row_number() over (order by sum(sales_amount) desc) as ranking
+	(select dp.product_name, sum(sales_amount), 
+			row_number() over (order by sum(sales_amount) desc) as ranking
 	from fact_sales fs
 	join dim_products dp 
 		on fs.product_key = dp.product_key
@@ -152,7 +158,8 @@ where ranking <= 10;
 -- Find the 10 worst performing products in terms of sales --
 select *
 from 
-	(select dp.product_name, sum(sales_amount), row_number() over (order by sum(sales_amount) asc) as ranking
+	(select dp.product_name, sum(sales_amount), 
+			row_number() over (order by sum(sales_amount) asc) as ranking
 	from fact_sales fs
 	join dim_products dp 
 		on fs.product_key = dp.product_key
@@ -171,7 +178,9 @@ where dp.subcategory not in
 
 -- Compare products purchased by marital status --
 
-select dp.subcategory, dc.marital_status, sum(fs.sales_amount) as total_sales, rank() over(partition by dc.marital_status order by sum(fs.sales_amount) desc)
+select dp.subcategory, dc.marital_status, 
+		sum(fs.sales_amount) as total_sales, 
+		rank() over(partition by dc.marital_status order by sum(fs.sales_amount) desc) as rank_nr
 from fact_sales fs
 join dim_customers dc
 	on fs.customer_key = dc.customer_key
@@ -182,7 +191,9 @@ group by dp.subcategory, dc.marital_status;
 -- compare table side by side of total sales by gender --
 
 with cte_gender (subcategory, gender, total_sales, ranking) as
-(select dp.subcategory, dc.gender, sum(fs.sales_amount), dense_rank() over(partition by dc.gender order by sum(fs.sales_amount) desc)
+(
+select dp.subcategory, dc.gender, sum(fs.sales_amount), 
+		dense_rank() over(partition by dc.gender order by sum(fs.sales_amount) desc)
 from fact_sales fs
 join dim_customers dc
 	on fs.customer_key = dc.customer_key
@@ -207,7 +218,7 @@ order by 3 desc;
 
 -- total months ordered per customer--
 select dc.customer_key, min(order_date) as min_order, MAX(order_date) as max_order, 
-timestampdiff(MONTH,min(order_date), MAX(order_date))
+		timestampdiff(MONTH,min(order_date), MAX(order_date)) as total_months
 from dim_customers dc 
 join fact_sales fs
 	on dc.customer_key = fs.customer_key
@@ -223,7 +234,7 @@ join fact_sales fs
 	on dc.customer_key = fs.customer_key
 group by dc.customer_key
 order by 4 desc)
-select sum(months_stayed)
+select sum(months_stayed) as total_months
 from cte_customer;
 
 -- calculate average order value --
@@ -231,7 +242,7 @@ select (sum(sales_amount))/(count(distinct order_number)) as Avg_order_value
 from fact_sales;
 
 -- Sales trend per month--
-select date_format(order_date, '%Y-%m') as order_month, sum(sales_amount)
+select date_format(order_date, '%Y-%m') as order_month, sum(sales_amount) as total_sales
 from fact_sales
 group by order_month
 having order_month is not null
