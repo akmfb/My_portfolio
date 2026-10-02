@@ -87,4 +87,12 @@ YMD =IFERROR(DATE(F2,D2,E2),C2)
 </details>
 
 ## Challenges & Decisions
+- Chose to remove **attending_doctor_id** column as it did not have any relationship to the other tables
+- Utilized Artificial Intelligence to give the correct diagnosis description to each code. The results have been used as a lookup table for each code
 
+## Final Dataset Summary
+After cleaning, the dataset now contains:
+- Fully standardized dates
+- Clean numeric and text fields
+- Consistent and unique catgories
+- No duplicates
