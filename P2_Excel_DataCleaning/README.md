@@ -69,4 +69,22 @@ YMD =IFERROR(DATE(F2,D2,E2),C2)
 |1997-07-16|$10,209.66|Pediatrics|
 
 ### Screenshots
+<details>
+  <summary><b>Raw Tables</b></summary> 
+
+![](raw_patients.png)
+![](raw_admissions.png)
+![](raw_billing.png)
+![](raw_diagnosis.png)
+</details>
+<details>
+  <summary><b>Cleaned Tables</b></summary>
+
+![](cleaned_patients.png)
+![](cleaned_admissions.png)
+![](cleaned_billing.png)
+![](cleaned_diagnosis.png)
+</details>
+
+## Challenges & Decisions
 
