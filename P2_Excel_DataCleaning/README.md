@@ -45,5 +45,28 @@ YMD =IFERROR(DATE(F2,D2,E2),C2)
   - **PROPER()**
 - Corrected spelling mistakes from the **address column**
 ### 4. Fixed Category Inconsistencies
-- Standardized **Department**, **Gender**, **Payment_Status**, and **Insurance_provider** columns
-- 
+- Standardized **Gender**, **Payment_Status**, and **Insurance_provider** columns
+- Created a unique **Department** table and applied **Fuzzy Merge** to standardize and replace inconsistent department names
+### 5. Created and Removed Columns
+- Separated address and created new columns for Address, City, State, and Zip code
+- Removed irrelevant column - **attending_doctor_id** as it does not have any relationship to any of the table
+
+## Before & After Samples
+### Raw Data
+|Date_of_birth|Amount|Department|
+|-------------|------|----------|
+|September 13, 1978|USD 5,344.32|Onco|
+|7.12.1976|$20.00|GeneralSurgery|
+|01-25-54|5711|CARDIOLOGY
+|07/16/1997|10209.6588471341|Peds|
+
+### Cleaned Data
+|Date_of_birth|Amount|Department|
+|-------------|------|----------|
+|1978-09-13|$5,344.32|Oncology|
+|1976-07-12|$20.00|General Surgery|
+|1954-01-25|$5,711.00|Cardiology|
+|1997-07-16|$10,209.66|Pediatrics|
+
+### Screenshots
+
