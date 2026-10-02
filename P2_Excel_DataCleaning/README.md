@@ -28,7 +28,7 @@ Columns: 25
 - Used **Remove duplicates** tool in Excel
 - Removed 15 duplicate rows in **Patients** table
 ### 2. Standardized Date Formats
-- Created 3 columns (Year, Month, Day) to extract dates using formula:
+The dataset contained multiple inconsistent date formats, making it impossible to sort, filter, or analyze patient timelines. To resolve this, I decomposed each raw date into Year, Month, and Day components using Excel formulas, then reconstructed them into a unified YYYY-MM-DD format.
 ```formula
 Month =IFERROR(VALUE(IF(LEFT(C2,2)>"12",MID(C2,4,2),LEFT(C2,2))),"")
 Day =IFERROR(VALUE(IF(AND(LEFT(C2,2)>"12",MID(C2,4,2)>="12"),LEFT(C2,2),MID(C2,4,2))),"")
