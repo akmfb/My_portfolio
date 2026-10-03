@@ -22,6 +22,8 @@ Columns: 25
 - Extra spaces and non-printable characters in text fields
 - Missing values
 - Inconsistent category labels
+- Incorrect diagnosis description
+- Some Admission and Discharge dates are swapped
 
 ## Data Cleaning Steps
 ### 1. Removed duplicates
@@ -49,7 +51,9 @@ YMD =IFERROR(DATE(F2,D2,E2),C2)
 - Created a unique **Department** table and applied **Fuzzy Merge** to standardize and replace inconsistent department names
 ### 5. Created and Removed Columns
 - Separated address and created new columns for Address, City, State, and Zip code
-- Removed irrelevant column - **attending_doctor_id** as it does not have any relationship to any of the table
+- Added an age column using **DATEDIF** formula
+- Added a **length_of_stay** column by calculating the difference between **admission_date** and **discharge_date**
+- Removed **attending_doctor_id** column as it does not have any relationship to any of the table
 
 ## Before & After Samples
 ### Raw Data
@@ -86,9 +90,24 @@ YMD =IFERROR(DATE(F2,D2,E2),C2)
 ![](cleaned_diagnosis.png)
 </details>
 
+## Tools and Techniques Used
+- Excel formulas: TRIM(), CLEAN(), PROPER(), LEFT(), RIGHT(), MID(), IFERROR(), XLOOKUP(), DATEDIFF(), QUARTILE.INC()
+- Conditional Formatting
+- Data validation
+- Text to Split
+- Power Query
+- Remove Duplicates
+- Scatter Plots chart
+
 ## Challenges & Decisions
 - Chose to remove **attending_doctor_id** column as it did not have any relationship to the other tables
 - Utilized Artificial Intelligence to give the correct diagnosis description to each code. The results have been used as a lookup table for each code
+
+
+## Initial discoveries after Data cleaning
+- Found 383/2541 outliers in the length of stay using IQR method
+- Found that there is no correlation between length of stay and severity using scatter plot chart
+- 
 
 ## Final Dataset Summary
 After cleaning, the dataset now contains:
