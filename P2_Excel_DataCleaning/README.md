@@ -14,6 +14,10 @@ Columns: 25
 - billing_id
 - insurance_provider
 - department
+- admission_date
+- discharge_date
+- amount
+- severity
 
 ### Initial issues identified
 - Mixed date formats (DD/MM/YY, DD-MM-YY, MM.DD.YY, text dates)
@@ -98,20 +102,29 @@ YMD =IFERROR(DATE(F2,D2,E2),C2)
 - Power Query
 - Remove Duplicates
 - Scatter Plots chart
+- IQR
 
 ## Challenges & Decisions
 - Chose to remove **attending_doctor_id** column as it did not have any relationship to the other tables
 - Utilized Artificial Intelligence to give the correct diagnosis description to each code. The results have been used as a lookup table for each code
 
-
-## Initial discoveries after Data cleaning
-- Found 383/2541 outliers in the length of stay using IQR method
-- Found that there is no correlation between length of stay and severity using scatter plot chart
-- 
-
 ## Final Dataset Summary
-After cleaning, the dataset now contains:
-- Fully standardized dates
-- Clean numeric and text fields
-- Consistent and unique catgories
-- No duplicates
+After cleaning, and validating all four tables, the final dataset now contains:
+- Fully standardized dates across all tables (YYYY-MM-DD)
+- Clean numeric fields, including currency formatted billing amounts
+- Cleaned text fields (trimmed, normalized, corrected spellings, and standardized categories)
+- No duplicate records across all tables
+- Consistent category labels for gender, payment status, insurance provider, and department name
+- New derived fields:
+  - Age
+  - Length of Stay
+- Outlier analysis using the IQR method:
+  - Admissions: 94 missing length of stay values due to missing admission or discharge dates and 274 length of stay outliers (flagged, not removed)
+  - Billing: 61 missing billing amounts, 60 billing amount outliers (flagged,  not removed)
+      - 20 records show negative amounts marked as "Paid" which is incorrect. These records are flagged as anomalies and excludes from the calculation. 
+- Correlation checks performed using scatter plot:
+  - No correlation between Length of stay and Severity
+  - No correlation between billing amount and diagnosis count
+  - No correlation between billing amount and length of stay
+- All outliers and missing values are kept to preserve dataset completeness; **outliers were flagged rather than deleted**
+- All formula columns were pasted as values to keep the final dataset clean and stable.
