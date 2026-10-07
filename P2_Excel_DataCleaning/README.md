@@ -8,6 +8,8 @@ Source: [Kaggle - Healthcare Data Cleaning (hard)](https://www.kaggle.com/datase
 Files: 4 csv files <br>
 Columns: 25
 
+👉 [Download the CLEANED Excel file here](Cleaned_Healthcare_Admissions.xlsx)
+
 ### Key fields
 - admission_id
 - patient_id
