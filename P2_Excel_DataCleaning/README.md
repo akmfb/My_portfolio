@@ -123,10 +123,10 @@ After cleaning, and validating all four tables, the final dataset now contains:
 - Outlier analysis using the IQR method:
   - Admissions: 94 missing length of stay values due to missing admission or discharge dates and 274 length of stay outliers (flagged, not removed)
   - Billing: 61 missing billing amounts, 60 billing amount outliers (flagged,  not removed)
-      - 20 records show negative amounts marked as "Paid" which is incorrect. These records are flagged as anomalies and excludes from the calculation. 
+      - 20 records show negative amounts marked as "Paid" which is incorrect. These records are flagged as anomalies and excluded from the calculation. 
 - Correlation checks performed using scatter plot:
-  - No correlation between Length of stay and Severity
+  - No correlation between length of stay and severity
   - No correlation between billing amount and diagnosis count
   - No correlation between billing amount and length of stay
 - All outliers and missing values are kept to preserve dataset completeness; **outliers were flagged rather than deleted**
-- All formula columns were pasted as values to keep the final dataset clean and stable.
+- All formula columns were pasted as values to keep the final dataset clean and stable
